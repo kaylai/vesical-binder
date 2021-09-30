@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir appmode
 RUN pip install --no-cache-dir VESIcal
 RUN jupyter nbextension enable --py --sys-prefix appmode
 RUN jupyter serverextension enable --py --sys-prefix appmode
+RUN mkdir ThermoEngine # make this directory
 USER ${NB_USER}
 
 # create a user called 1000 (binder cannot run as root)
