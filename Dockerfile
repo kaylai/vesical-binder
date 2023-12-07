@@ -1,5 +1,11 @@
 FROM registry.gitlab.com/enki-portal/thermoengine:master
 
+RUN jupyter labextension uninstall @enki-portal/jupyterlab-gitlab --no-build
+RUN jupyter labextension uninstall @enki-portal/shared --no-build
+RUN jupyter labextension uninstall @enki-portal/enkiintro --no-build
+RUN jupyter lab build
+RUN jupyter lab clean
+
 # Make sure the contents of our repo are in ${HOME}
 COPY . ${HOME}
 USER root
@@ -7,6 +13,7 @@ RUN chown -R ${NB_UID} ${HOME}
 RUN pip install --no-cache-dir appmode
 RUN pip install --no-cache-dir VESIcal
 RUN pip install --no-cache-dir voila
+RUN pip install --no-cache-dir ipywidgets ipympl matplotlib
 RUN jupyter nbextension enable --py --sys-prefix appmode
 RUN jupyter serverextension enable --py --sys-prefix appmode
 RUN mkdir ThermoEngine # make this directory
