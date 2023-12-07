@@ -1,5 +1,11 @@
 FROM registry.gitlab.com/enki-portal/thermoengine:master
 
+RUN jupyter labextension uninstall @enki-portal/jupyterlab-gitlab --no-build
+RUN jupyter labextension uninstall @enki-portal/shared --no-build
+RUN jupyter labextension uninstall @enki-portal/enkiintro --no-build
+RUN jupyter lab build
+RUN jupyter lab clean
+
 # Make sure the contents of our repo are in ${HOME}
 COPY . ${HOME}
 USER root
